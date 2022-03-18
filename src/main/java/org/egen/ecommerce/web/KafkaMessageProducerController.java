@@ -1,6 +1,5 @@
 package org.egen.ecommerce.web;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.egen.ecommerce.dto.OrderDto;
@@ -15,11 +14,11 @@ import javax.validation.Valid;
 @AllArgsConstructor
 @RequestMapping(value = "/v1/message")
 @Tag(name="Messages")
-public class KafkaMessageProducer {
+public class KafkaMessageProducerController {
 
   private final KafkaTemplate<String, OrderDto> kafkaTemplate;
 
-  @PostMapping(value = "/sendMessage", produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public void sendMessage(@RequestBody @Valid OrderDto orderDto) {
     kafkaTemplate.send("orders", orderDto);
